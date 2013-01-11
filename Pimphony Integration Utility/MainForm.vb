@@ -3,7 +3,9 @@ Imports Microsoft.Win32
 Public Class MainForm
     Dim RegKey As String = "SOFTWARE\\Swdev Bali\\PIMPhony Integration Utility\\1.0"
     Dim dbFileName As String = Nothing
+
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Me.Visible = False
         Dim s() As String = System.Environment.GetCommandLineArgs()
 
         'PIMPhony will send 4 argument. But VB.NET will insert *.exe as the first argument 
@@ -11,10 +13,8 @@ Public Class MainForm
             MessageBox.Show("I am sorry, this application must be called by Pimphony")
             End
         End If
-        txtArgument1.Text = s(1)
-        txtArgument2.Text = s(2)
-        txtArgument3.Text = s(3)
-        txtArgument4.Text = s(4)
+        Dim callerNumber As String = s(1)
+        Clipboard.SetText(callerNumber)
 
         'Open Registry 
         Dim AppKey As RegistryKey
@@ -40,14 +40,14 @@ Public Class MainForm
                 AppKey.SetValue("DB Filename", dbFileName)
             End While
             AppKey.Close()
+
+            'open access database
+            openAccessForm(callerNumber)
         End If
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        End
-    End Sub
 
-    Private Sub btnOpenForm_Click(sender As Object, e As EventArgs) Handles btnOpenForm.Click
+    Private Sub openAccessForm(callerNumber As String)
         Dim oAccess As Access.Application
 
         ' Start a new instance of Access for Automation:
@@ -58,6 +58,7 @@ Public Class MainForm
 
         ' Show a form named Employees:
         oAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
+
     End Sub
 
     Private Function GetDbFilename() As String

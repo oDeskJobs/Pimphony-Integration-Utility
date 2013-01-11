@@ -34,11 +34,13 @@ Partial Class MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(332, 170)
+        Me.ClientSize = New System.Drawing.Size(332, 26)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "MainForm"
+        Me.Opacity = 0.0R
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Pimphony Integration Utility"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
         Me.ResumeLayout(False)
 
     End Sub

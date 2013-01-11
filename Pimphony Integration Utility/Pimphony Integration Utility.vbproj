@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>PimphonyIntegrationUtility.My.MyApplication</StartupObject>
     <RootNamespace>PimphonyIntegrationUtility</RootNamespace>
-    <AssemblyName>PimphonyIntegrationUtility</AssemblyName>
+    <AssemblyName>piu</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
@@ -36,7 +36,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>PimphonyIntegrationUtility.xml</DocumentationFile>
+    <DocumentationFile>piu.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -46,7 +46,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>PimphonyIntegrationUtility.xml</DocumentationFile>
+    <DocumentationFile>piu.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -178,7 +178,7 @@
     </COMReference>
     <COMReference Include="DAO">
       <Guid>{00025E01-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>5</VersionMajor>
+      <VersionMajor>4</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>

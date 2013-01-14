@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.PimphonyIntegrationUtility.MainForm
+            Me.MainForm = Global.PimphonyIntegrationUtility.IncomingCallHandler
         End Sub
     End Class
 End Namespace

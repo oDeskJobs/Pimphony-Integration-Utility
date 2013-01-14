@@ -113,11 +113,11 @@
     <Compile Include="SettingForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.vb">
+    <Compile Include="IncomingCallHandler.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.vb">
-      <DependentUpon>MainForm.vb</DependentUpon>
+    <Compile Include="IncomingCallHandler.Designer.vb">
+      <DependentUpon>IncomingCallHandler.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainModule.vb" />
@@ -141,8 +141,8 @@
     <EmbeddedResource Include="SettingForm.resx">
       <DependentUpon>SettingForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.vb</DependentUpon>
+    <EmbeddedResource Include="IncomingCallHandler.resx">
+      <DependentUpon>IncomingCallHandler.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

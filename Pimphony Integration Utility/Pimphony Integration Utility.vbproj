@@ -106,6 +106,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalModule.vb" />
     <Compile Include="SettingForm.Designer.vb">
       <DependentUpon>SettingForm.vb</DependentUpon>
     </Compile>

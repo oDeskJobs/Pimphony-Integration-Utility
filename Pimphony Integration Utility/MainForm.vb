@@ -20,15 +20,8 @@ Public Class MainForm
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.WindowState = FormWindowState.Minimized
+        Dim isRelocate As Boolean = False
         Dim s() As String = System.Environment.GetCommandLineArgs()
-
-        'PIMPhony will send 4 argument. But VB.NET will insert *.exe as the first argument 
-        If s.Length < 5 Then
-            MessageBox.Show("I am sorry, this application must be called by PIMphony")
-            End
-        End If
-        Dim callerNumber As String = s(1)
-        Clipboard.SetText("101_" & callerNumber)
 
         'Open Registry 
         Dim AppKey As RegistryKey
@@ -37,26 +30,46 @@ Public Class MainForm
             AppKey = Registry.CurrentUser.CreateSubKey(RegKey)
         End If
 
+        'PIMPhony will send 4 argument. But VB.NET will insert *.exe as the first argument 
+        If s.Length = 2 Then
+            isrelocate = s(1).Equals("-relocate")
+            If isRelocate Then
+                'clear db
+                If (Not AppKey Is Nothing) Then
+                    AppKey.SetValue("DB Filename", "")
+                End If
+            End If
+        ElseIf s.Length < 5 Then
+            MessageBox.Show("I am sorry, this application must be called by PIMphony")
+            End
+        End If
+        Dim callerNumber As String = s(1)
+        Clipboard.SetText("101_" & callerNumber)
+
+
+
         'try to get db path
 
         If (Not AppKey Is Nothing) Then
             dbFileName = AppKey.GetValue("DB Filename")
-            If dbFileName Is Nothing Then
-                MessageBox.Show("Path to Database file not found in registry. Please specify it now" & vbCrLf & "You can change it later any time using the Configuration Window", Application.ProductName & " " & Application.ProductVersion)
-                dbFileName = GetDbFilename()
+            If dbFileName Is Nothing Or dbFileName = "" Then
+                If Not isRelocate Then MessageBox.Show("Path to Database file not found in registry. Please specify it now" & vbCrLf & "You can change it later any time using the Configuration Window", Application.ProductName & " " & Application.ProductVersion)
+                While Not System.IO.File.Exists(dbFileName)
+                    dbFileName = GetDbFilename()
+                End While
             End If
             AppKey.SetValue("DB Filename", dbFileName)
 
             'check existence of that file name
             While Not System.IO.File.Exists(dbFileName)
-                MessageBox.Show("The database file is not found!" & vbCrLf & "Please specify the correct database file", Application.ProductName & " " & Application.ProductVersion)
+                If Not isRelocate Then MessageBox.Show("The database file is not found!" & vbCrLf & "Please specify the correct database file", Application.ProductName & " " & Application.ProductVersion)
                 dbFileName = GetDbFilename()
                 AppKey.SetValue("DB Filename", dbFileName)
             End While
             AppKey.Close()
 
             'open access database
-            openAccessForm()
+            If Not isRelocate Then openAccessForm()
             End
         End If
     End Sub
@@ -96,6 +109,8 @@ Public Class MainForm
         Dim result As String
         OpenFileDialog.Title = "Select the database file"
         OpenFileDialog.FileName = ""
+        OpenFileDialog.DefaultExt = "*.accdb"
+        OpenFileDialog.Filter = "Microsoft Access Database (*.accdb) | *.accdb"
         OpenFileDialog.ShowDialog()
         result = OpenFileDialog.FileName
         GetDbFilename = result

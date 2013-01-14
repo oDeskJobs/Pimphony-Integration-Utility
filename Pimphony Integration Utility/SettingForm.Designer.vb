@@ -28,14 +28,16 @@ Partial Class SettingForm
         Me.txtFilename = New System.Windows.Forms.TextBox()
         Me.btnBrowse = New System.Windows.Forms.Button()
         Me.chkAcceptIntCall = New System.Windows.Forms.CheckBox()
+        Me.btnApply = New System.Windows.Forms.Button()
+        Me.btnCancel = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(16, 188)
+        Me.btnOK.Location = New System.Drawing.Point(253, 191)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
-        Me.btnOK.TabIndex = 0
+        Me.btnOK.TabIndex = 2
         Me.btnOK.Text = "&OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
@@ -54,14 +56,14 @@ Partial Class SettingForm
         Me.txtFilename.Location = New System.Drawing.Point(16, 30)
         Me.txtFilename.Name = "txtFilename"
         Me.txtFilename.Size = New System.Drawing.Size(393, 20)
-        Me.txtFilename.TabIndex = 2
+        Me.txtFilename.TabIndex = 0
         '
         'btnBrowse
         '
         Me.btnBrowse.Location = New System.Drawing.Point(415, 27)
         Me.btnBrowse.Name = "btnBrowse"
         Me.btnBrowse.Size = New System.Drawing.Size(75, 23)
-        Me.btnBrowse.TabIndex = 3
+        Me.btnBrowse.TabIndex = 1
         Me.btnBrowse.Text = "&Browse.."
         Me.btnBrowse.UseVisualStyleBackColor = True
         '
@@ -71,15 +73,38 @@ Partial Class SettingForm
         Me.chkAcceptIntCall.Location = New System.Drawing.Point(16, 56)
         Me.chkAcceptIntCall.Name = "chkAcceptIntCall"
         Me.chkAcceptIntCall.Size = New System.Drawing.Size(100, 17)
-        Me.chkAcceptIntCall.TabIndex = 4
+        Me.chkAcceptIntCall.TabIndex = 2
         Me.chkAcceptIntCall.Text = "Accept INT call"
         Me.chkAcceptIntCall.UseVisualStyleBackColor = True
         '
+        'btnApply
+        '
+        Me.btnApply.Location = New System.Drawing.Point(415, 191)
+        Me.btnApply.Name = "btnApply"
+        Me.btnApply.Size = New System.Drawing.Size(75, 23)
+        Me.btnApply.TabIndex = 4
+        Me.btnApply.Text = "&Apply"
+        Me.btnApply.UseVisualStyleBackColor = True
+        '
+        'btnCancel
+        '
+        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(334, 191)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.TabIndex = 3
+        Me.btnCancel.Text = "&Cancel"
+        Me.btnCancel.UseVisualStyleBackColor = True
+        '
         'SettingForm
         '
+        Me.AcceptButton = Me.btnOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(502, 226)
+        Me.Controls.Add(Me.btnCancel)
+        Me.Controls.Add(Me.btnApply)
         Me.Controls.Add(Me.chkAcceptIntCall)
         Me.Controls.Add(Me.btnBrowse)
         Me.Controls.Add(Me.txtFilename)
@@ -100,4 +125,6 @@ Partial Class SettingForm
     Friend WithEvents txtFilename As System.Windows.Forms.TextBox
     Friend WithEvents btnBrowse As System.Windows.Forms.Button
     Friend WithEvents chkAcceptIntCall As System.Windows.Forms.CheckBox
+    Friend WithEvents btnApply As System.Windows.Forms.Button
+    Friend WithEvents btnCancel As System.Windows.Forms.Button
 End Class

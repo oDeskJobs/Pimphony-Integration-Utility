@@ -163,6 +163,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="Pimphony Integration Utility_TemporaryKey.pfx" />
+    <None Include="Setup.nsi" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

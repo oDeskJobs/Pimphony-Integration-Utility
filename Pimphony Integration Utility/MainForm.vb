@@ -21,6 +21,7 @@ Public Class MainForm
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.WindowState = FormWindowState.Minimized
         Dim isRelocate As Boolean = False
+        Dim isSetting As Boolean = False
         Dim s() As String = System.Environment.GetCommandLineArgs()
 
         'Open Registry 
@@ -39,6 +40,14 @@ Public Class MainForm
                     AppKey.SetValue("DB Filename", "")
                 End If
             End If
+
+            isSetting = s(1).Equals("-setting")
+            If isSetting Then
+                SettingForm.ShowDialog()
+                Exit Sub
+            End If
+
+
         ElseIf s.Length < 5 Then
             MessageBox.Show("I am sorry, this application must be called by PIMphony")
             End

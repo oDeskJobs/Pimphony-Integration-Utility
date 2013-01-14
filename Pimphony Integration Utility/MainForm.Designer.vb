@@ -38,6 +38,8 @@ Partial Class MainForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "MainForm"
         Me.Opacity = 0.0R
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Pimphony Integration Utility"
         Me.WindowState = System.Windows.Forms.FormWindowState.Minimized

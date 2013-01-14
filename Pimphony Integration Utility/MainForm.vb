@@ -9,6 +9,7 @@ Public Class MainForm
 
         'Open Registry, create if it didn't exists
         OpenRegistry()
+        LoadRegistryValue()
 
         'PIMPhony will send 4 argument. But VB.NET will insert *.exe as the first argument 
         If s.Length = 2 Then
@@ -30,11 +31,17 @@ Public Class MainForm
             MessageBox.Show("I am sorry, this application must be called by PIMphony")
             End
         End If
+
+        'now handle the rest of the argument
+        'only accept INT call if told to
+        If s(4).Equals("INT") And Not isAcceptInternalCall Then
+            End
+        End If
+
         Dim callerNumber As String = s(1)
         Clipboard.SetText("101_" & callerNumber)
 
-        'try to get db path
-        LoadRegistryValue()
+       
 
         If dbFileName = "" Then
             If Not isRelocate Then MessageBox.Show("Path to Database file not found in registry. Please specify it now" & vbCrLf & "You can change it later any time using the Configuration Window", Application.ProductName & " " & Application.ProductVersion)

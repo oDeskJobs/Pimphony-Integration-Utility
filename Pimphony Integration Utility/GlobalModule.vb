@@ -70,15 +70,13 @@ Module GlobalModule
                 objAccess.DoCmd.Close(Access.AcObjectType.acForm, "NewCall", Access.AcCloseSave.acSaveYes)
                 objAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
                 objAccess.DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
+                objAccess.visible = True
             ElseIf isAccessOpeningDatabase Then
-                'Dim oa As New Access.Application
-                'oa.OpenAccessProject
-                'MsgBox(objAccess.CurrentProject.FullName)
-                'oa.CloseCurrentDatabase()
                 objAccess.CloseCurrentDatabase()
                 objAccess.OpenCurrentDatabase(filepath:=dbFileName)
                 objAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
                 objAccess.DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
+                objAccess.visible = True
             End If
 
            

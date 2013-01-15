@@ -20,9 +20,11 @@ Module GlobalModule
     Sub ShowAccess(instance As Object, size As Integer)
         Dim hWnd As Long, temp As Long
         On Error Resume Next
-        instance.Visible = True
+        instance.Visible = False
         On Error GoTo 0 'turn off error handler
+
         hWnd = instance.hWndAccessApp
+
         temp = SetForegroundWindow(hWnd)
 
     End Sub
@@ -34,32 +36,52 @@ Module GlobalModule
         Catch ex As Exception
             objAccess = CreateObject("Access.Application")
         End Try
-        Dim oAccess = New Access.ApplicationClass()
-        'oAccess.DoCmd.Save(Access.AcObjectType.acForm, "NewCall")
-        ShowAccess(instance:=objAccess, size:=SW_SHOW)
+        ShowAccess(instance:=objAccess, size:=SW_MAXIMIZE)
+
+        Dim iWorkspace As Integer
+        Dim iDatabase As Integer
+        Dim isAccessOpeningDatabase As Boolean = False
+        Dim isOurDatabaseOpen As Boolean = False
 
 
         With objAccess
             If .DBEngine.Workspaces(0).Databases.Count = 0 Then
-
                 .OpenCurrentDatabase(filepath:=dbFileName)
                 .DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
-                .DoCmd.RunCommand(Access.AcCommand.acCmdAppRestore)
+                objAccess.visible = True
+                .DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
+
             Else
                 'an Access database is open, check whether our database is also open, and use it
-                Dim iWorkspace As Integer
-                Dim iDatabase As Integer
                 For iWorkspace = 0 To .DBEngine.Workspaces.count - 1
                     For iDatabase = 0 To .DBEngine.Workspaces(iWorkspace).Databases.count - 1
+                        isAccessOpeningDatabase = True
                         If .DBEngine.Workspaces(iWorkspace).Databases(iDatabase).Name = dbFileName Then
-                            'close the form by saving it first, and then open it
-                            .DoCmd.Close(Access.AcObjectType.acForm, "NewCall", Access.AcCloseSave.acSaveYes)
-                            .DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
-                            .DoCmd.RunCommand(Access.AcCommand.acCmdAppRestore)
+                            isOurDatabaseOpen = True
+                            iWorkspace = .DBEngine.Workspaces.count - 1
+                            Exit For
                         End If
                     Next
                 Next
             End If
+
+            If isAccessOpeningDatabase And isOurDatabaseOpen Then
+                'close the form by saving it first, and then open it
+                objAccess.DoCmd.Close(Access.AcObjectType.acForm, "NewCall", Access.AcCloseSave.acSaveYes)
+                objAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
+                objAccess.DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
+            ElseIf isAccessOpeningDatabase Then
+                'Dim oa As New Access.Application
+                'oa.OpenAccessProject
+                'MsgBox(objAccess.CurrentProject.FullName)
+                'oa.CloseCurrentDatabase()
+                objAccess.CloseCurrentDatabase()
+                objAccess.OpenCurrentDatabase(filepath:=dbFileName)
+                objAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
+                objAccess.DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
+            End If
+
+           
         End With
     End Sub
     Public Function GetDbFilename() As String

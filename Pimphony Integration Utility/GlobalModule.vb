@@ -13,6 +13,7 @@ Module GlobalModule
     Public RegKey As String = "SOFTWARE\\Swdev Bali\\PIMPhony Integration Utility\\1.0"
     Public dbFileName As String = Nothing
     Public isAcceptInternalCall As Boolean
+    Public isAutomaticallyOpenDatabase As Boolean
     Public OpenFileDialog As New OpenFileDialog
 
 
@@ -34,6 +35,7 @@ Module GlobalModule
         Try
             objAccess = GetObject(, "Access.Application")
         Catch ex As Exception
+            If Not isAutomaticallyOpenDatabase Then Exit Sub
             objAccess = CreateObject("Access.Application")
         End Try
         ShowAccess(instance:=objAccess, size:=SW_MAXIMIZE)
@@ -71,7 +73,7 @@ Module GlobalModule
                     objAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
                     objAccess.DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
                     objAccess.visible = True
-                ElseIf isAccessOpeningDatabase Then
+                ElseIf isAccessOpeningDatabase And isAutomaticallyOpenDatabase Then
                     objAccess.CloseCurrentDatabase()
                     objAccess.OpenCurrentDatabase(filepath:=dbFileName)
                     objAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
@@ -117,9 +119,18 @@ Module GlobalModule
         Else
             isAcceptInternalCall = AppKey.GetValue("Accept Internal Call", False)
         End If
+
+
+        If AppKey.GetValue("Automatically Open Database", Nothing) Is Nothing Then
+            AppKey.SetValue("Automatically Open Database", False)
+            isAutomaticallyOpenDatabase = False
+        Else
+            isAutomaticallyOpenDatabase = AppKey.GetValue("Automatically Open Database", False)
+        End If
     End Sub
     Public Sub SaveRegistryValue()
         AppKey.SetValue("DB Filename", dbFileName)
         AppKey.SetValue("Accept Internal Call", isAcceptInternalCall)
+        AppKey.SetValue("Automatically Open Database", isAutomaticallyOpenDatabase)
     End Sub
 End Module

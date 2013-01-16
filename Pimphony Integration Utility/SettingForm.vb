@@ -9,6 +9,7 @@
         LoadRegistryValue()
         txtFilename.Text = dbFileName
         chkAcceptIntCall.Checked = isAcceptInternalCall
+        chkAutoOpenDatabase.Checked = isAutomaticallyOpenDatabase
     End Sub
 
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
@@ -24,6 +25,7 @@
             Return
         End If
         isAcceptInternalCall = chkAcceptIntCall.Checked
+        isAutomaticallyOpenDatabase = chkAutoOpenDatabase.Checked
     End Sub
 
     Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click

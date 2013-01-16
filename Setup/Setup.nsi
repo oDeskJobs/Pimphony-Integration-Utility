@@ -6,6 +6,7 @@ installDir "$PROGRAMFILES\PIMPhony Integration Utility"
 
 
 section
+	SetShellVarContext all
 	setOutPath $INSTDIR
 	File piu.exe
 	File Interop.DAO.dll
@@ -19,6 +20,7 @@ section
 sectionEnd
 
 section "Uninstall"
+	SetShellVarContext all
 	delete "$INSTDIR\uninstaller.exe"
 	RMDir /r "$INSTDIR"
 	RMDir /r "$SMPROGRAMS\PIMPhony Integration Utility"

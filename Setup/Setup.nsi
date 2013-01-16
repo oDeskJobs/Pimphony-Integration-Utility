@@ -1,8 +1,7 @@
 OutFile "Setup.exe"
 
 installDir "$PROGRAMFILES\PIMPhony Integration Utility"
-#still not working here!
-#RequestExecutionLevel admin
+RequestExecutionLevel admin
 
 
 section
@@ -13,13 +12,15 @@ section
 	File Interop.VBIDE.dll
 	File "PIMPhony Integration Utility Guide.pdf"
 	writeUninstaller $INSTDIR\uninstaller.exe
+	createShortCut "$INSTDIR\Integration Settings.lnk" "$INSTDIR\piu.exe" "-setting"
 
+	CreateDirectory "$SMPROGRAMS\PIMPhony Integration Utility" 
 	createShortCut "$SMPROGRAMS\PIMPhony Integration Utility\Integration Settings.lnk" "$INSTDIR\piu.exe" "-setting"
 	createShortcut "$SMPROGRAMS\PIMPhony Integration Utility\Integration Guide.lnk" "$INSTDIR\PIMPhony Integration Utility Guide.pdf"
 	createShortCut "$SMPROGRAMS\PIMPhony Integration Utility\Uninstall.lnk" "$INSTDIR\uninstaller.exe"
 sectionEnd
 
-section "Uninstall"
+	section "Uninstall"
 	SetShellVarContext all
 	delete "$INSTDIR\uninstaller.exe"
 	RMDir /r "$INSTDIR"

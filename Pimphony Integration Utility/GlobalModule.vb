@@ -64,22 +64,25 @@ Module GlobalModule
                     Next
                 Next
             End If
+            Try
+                If isAccessOpeningDatabase And isOurDatabaseOpen Then
+                    'close the form by saving it first, and then open it
+                    objAccess.DoCmd.Close(Access.AcObjectType.acForm, "NewCall", Access.AcCloseSave.acSaveYes)
+                    objAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
+                    objAccess.DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
+                    objAccess.visible = True
+                ElseIf isAccessOpeningDatabase Then
+                    objAccess.CloseCurrentDatabase()
+                    objAccess.OpenCurrentDatabase(filepath:=dbFileName)
+                    objAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
+                    objAccess.DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
+                    objAccess.visible = True
+                End If
+            Catch ex As Exception
 
-            If isAccessOpeningDatabase And isOurDatabaseOpen Then
-                'close the form by saving it first, and then open it
-                objAccess.DoCmd.Close(Access.AcObjectType.acForm, "NewCall", Access.AcCloseSave.acSaveYes)
-                objAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
-                objAccess.DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
-                objAccess.visible = True
-            ElseIf isAccessOpeningDatabase Then
-                objAccess.CloseCurrentDatabase()
-                objAccess.OpenCurrentDatabase(filepath:=dbFileName)
-                objAccess.DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
-                objAccess.DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
-                objAccess.visible = True
-            End If
+            End Try
 
-           
+
         End With
     End Sub
     Public Function GetDbFilename() As String

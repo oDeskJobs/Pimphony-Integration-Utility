@@ -29,14 +29,14 @@ namespace DesktopNotifier
 
         private void LoginDialog_Load(object sender, EventArgs e)
         {
-            OleDbCommand cmd = new OleDbCommand("select scode,sname from staff order by sname", DataAccess.getInstance().getDataConnection());
+            OleDbCommand cmd = new OleDbCommand("select staffno, scode,sname from staff order by sname", DataAccess.getInstance().getDataConnection());
             OleDbDataReader rdr = cmd.ExecuteReader();
           
             listStaff = new List<StaffModel>();
 
             while (rdr.Read())
             {
-                listStaff.Add(new StaffModel(rdr.GetString(rdr.GetOrdinal("scode")), rdr.GetString(rdr.GetOrdinal("sname")), ""));
+                listStaff.Add(new StaffModel(rdr.GetInt32(rdr.GetOrdinal("staffno")), rdr.GetString(rdr.GetOrdinal("scode")), rdr.GetString(rdr.GetOrdinal("sname")), ""));
             }
             cboUsername.Items.Clear();
             cboUsername.DisplayMember = "Name";
@@ -53,12 +53,12 @@ namespace DesktopNotifier
             OleDbDataReader rdr = cmd.ExecuteReader();
             if (rdr.Read())
             {
-                Program.loginStaff = new StaffModel(rdr.GetString(rdr.GetOrdinal("scode")), rdr.GetString(rdr.GetOrdinal("sname")), "");
+                Program.loginStaff = new StaffModel(rdr.GetInt32(rdr.GetOrdinal("staffno")), rdr.GetString(rdr.GetOrdinal("scode")), rdr.GetString(rdr.GetOrdinal("sname")), "");
             };
             rdr.Close();
             cmd.Dispose();
 
-            MessageBox.Show("Welcome " + Program.loginStaff.Name);
+            //MessageBox.Show("Welcome " + Program.loginStaff.Name);
 
         }
 

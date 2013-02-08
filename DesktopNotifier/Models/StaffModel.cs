@@ -7,26 +7,52 @@ namespace DesktopNotifier
 {
     class StaffModel
     {
-        private string scode;
-        private string sname;
-        private string password;
+        private int _staffno;
+        private string _scode;
+        private string _sname;
+        private string _password;
 
-        public StaffModel(string scode, string sname, string password)
+        public int staffNo
         {
-            this.scode = scode;
-            this.sname = sname;
-            this.password = password;
+            get { return _staffno; }
+            set { _staffno = value; }
+        }
+
+        public string staffCode
+        {
+            get { return _scode; }
+            set { _scode = value; }
+        }
+
+        public string staffName
+        {
+            get { return _sname; }
+            set { _sname = value; }
+        }
+
+        public string password
+        {
+            get { return _password; }
+            set { _password = value; }
+        }
+
+        public StaffModel(int staffno, string scode, string sname, string password)
+        {
+            this._staffno = staffno;
+            this._scode = scode;
+            this._sname = sname;
+            this._password = password;
         }
 
         public string Value
         {
-            get { return scode; }
-            set { scode = value; }
+            get { return _scode; }
+            set { _scode = value; }
         }
         public string Name
         {
-            get { return sname; }
-            set { sname = value; }
+            get { return _sname; }
+            set { _sname = value; }
         }
     }
 }

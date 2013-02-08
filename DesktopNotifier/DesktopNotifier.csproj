@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\PopupNotificationWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PopupNotificationWindow.Designer.cs">
+      <DependentUpon>PopupNotificationWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper\DataAccess.cs" />
     <Compile Include="Forms\LoginDialog.cs">
       <SubType>Form</SubType>
@@ -60,6 +66,7 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\BulletinModel.cs" />
     <Compile Include="ModifyRegistry.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +77,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PopupNotificationWindow.resx">
+      <DependentUpon>PopupNotificationWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -96,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Message.ico" />
+    <None Include="Resources\capoeira close.png" />
     <None Include="Resources\odesk aquasol.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

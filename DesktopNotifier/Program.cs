@@ -7,9 +7,7 @@ namespace DesktopNotifier
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        public static StaffModel loginStaff = null;
         [STAThread]
         static void Main()
         {

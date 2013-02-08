@@ -11,6 +11,8 @@ namespace DesktopNotifier.Forms
 {
     public partial class PopupNotificationWindow : Form
     {
+
+        int iPosMessage = -1;
         public PopupNotificationWindow()
         {
             InitializeComponent();
@@ -35,6 +37,58 @@ namespace DesktopNotifier.Forms
         private void PopupNotificationWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             //Program.AnimateWindow(this.Handle, 250, Program.AW_SLIDE | Program.AW_HOR_NEGATIVE);
+        }
+
+        internal void initPopupDisplay()
+        {
+            pnlMessage.Controls.Clear();
+            if (Program.listBulletin.Count == 0)
+            {
+                iPosMessage = -1;
+                lblMessage.Text = "";
+                btnPrev.Enabled = false;
+                btnNext.Enabled = false;
+                pnlMessage.Controls.Add(lblEmptyMessage);
+            }
+            else if (Program.listBulletin.Count == 1)
+            {
+                iPosMessage = 0;
+                btnPrev.Enabled = false;
+                btnNext.Enabled = false;
+                lblMessage.Text = "You have 1 message";
+            }
+            else
+            {
+                iPosMessage = 0;
+                btnNext.Enabled = true;
+                lblMessage.Text = "You have " + Program.listBulletin.Count + " messages";
+            }
+
+            displayMessage(iPosMessage);
+        }
+
+        private void displayMessage(int iPosMessage)
+        {
+            pnlMessage.Controls.Clear();
+            pnlMessage.Controls.Add(new BulletinPopup(iPosMessage));
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (iPosMessage < Program.listBulletin.Count-1)
+            {
+                iPosMessage++;
+            }
+            displayMessage(iPosMessage);
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (iPosMessage > 0)
+            {
+                iPosMessage--;
+            }
+            displayMessage(iPosMessage);
         }
     }
 }

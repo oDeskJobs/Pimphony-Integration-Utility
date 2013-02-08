@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using DesktopNotifier.Models;
 
 namespace DesktopNotifier
 {
@@ -17,7 +18,9 @@ namespace DesktopNotifier
         [DllImport("user32")]
         public static extern bool AnimateWindow(IntPtr hwnd, int time, int flags);
 
+        //Global static object
         public static StaffModel loginStaff = null;
+        public static List<BulletinModel> listBulletin;
         [STAThread]
         static void Main()
         {

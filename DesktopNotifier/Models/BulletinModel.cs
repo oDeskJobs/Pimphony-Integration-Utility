@@ -16,8 +16,9 @@ namespace DesktopNotifier.Models
         private int _sender;
         private bool _important;
         public bool _read;
+        private string _senderExplained;
 
-        public BulletinModel(int _seqno, int _staffNo, DateTime _bdate, string _notes, bool _complete, DateTime _startDate, int _sender, bool _important, bool _read)
+        public BulletinModel(int _seqno, int _staffNo, DateTime _bdate, string _notes, bool _complete, DateTime _startDate, int _sender, bool _important, bool _read, string _senderExplained)
         {
             this._seqno = _seqno;
             this._staffNo = _staffNo;
@@ -28,6 +29,13 @@ namespace DesktopNotifier.Models
             this._sender = _sender;
             this._important = _important;
             this._read = _read;
+            this._senderExplained = _senderExplained;
+        }
+
+        public string senderExplained
+        {
+            get { return _senderExplained; }
+            set { _senderExplained = value; }
         }
 
         public int assignedTo

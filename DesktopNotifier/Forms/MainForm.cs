@@ -56,14 +56,14 @@ namespace DesktopNotifier
             {
 
                 //fill listBulleting
-                string sql = "select [seqno],[staffno],[bdate],[notes],[complete],[startdate],[sender],[important],[read] from [bulletin] where [staffno]=@staffno and [read]=false";
+                string sql = "select [seqno],[staff].[staffno],[staff].[sname],[bdate],[notes],[complete],[startdate],[sender],[important],[read] from [bulletin],staff where [bulletin].[staffno]=@staffno and [read]=false and [bulletin].[sender]=[staff].[staffno]";
                 OleDbCommand cmd = new OleDbCommand(sql, DataAccess.getInstance().getDataConnection());
                 cmd.Parameters.AddWithValue("staffno", Program.loginStaff.staffNo);
                 OleDbDataReader rdr = cmd.ExecuteReader();
-                List<BulletinModel> listBulletin = new List<BulletinModel>();
+                Program.listBulletin = new List<BulletinModel>();
                 while (rdr.Read())
                 {
-                    listBulletin.Add(new
+                    Program.listBulletin.Add(new
                         BulletinModel(rdr.GetInt32(rdr.GetOrdinal("seqno")),
                         rdr.GetInt32(rdr.GetOrdinal("staffno")),
                         rdr.GetDateTime(rdr.GetOrdinal("bdate")),
@@ -72,18 +72,20 @@ namespace DesktopNotifier
                         rdr.GetDateTime(rdr.GetOrdinal("startdate")),
                         rdr.GetInt32(rdr.GetOrdinal("sender")),
                         rdr.GetBoolean(rdr.GetOrdinal("important")),
-                        rdr.GetBoolean(rdr.GetOrdinal("read"))));
+                        rdr.GetBoolean(rdr.GetOrdinal("read")),
+                        rdr.GetString(rdr.GetOrdinal("sname"))));
                 }
                 rdr.Close();
                 cmd.Dispose();
 
                 //store and display in a nice sliding notification window
                 string tip;
-                if(listBulletin.Count==0)
+                if (Program.listBulletin.Count == 0)
                 {
                     tip = "You don't have new messages";
                 }else{
-                    tip = "You have " + listBulletin.Count + " message(s) waiting\nClick here to display it";
+                    tip = "You have " + Program.listBulletin.Count + " message(s) waiting\nClick here to display it";
+                    popupMessage();
                 }
                 notifyIcon1.Text = tip;
             }
@@ -92,12 +94,24 @@ namespace DesktopNotifier
                 MessageBox.Show(ex.Message);
             }
                 timer1.Enabled = true;
-            
+
         }
 
-        private void notifyIcon1_Click(object sender, EventArgs e)
+        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (Program.listBulletin == null)
+                return;
+
+            if (e.Button == MouseButtons.Left)
+            {
+                popupMessage();
+            }
+        }
+
+        private static void popupMessage()
         {
             PopupNotificationWindow popup = new PopupNotificationWindow();
+            popup.initPopupDisplay();
             popup.Show();
         }
     }

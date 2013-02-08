@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\BulletinPopup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\BulletinPopup.Designer.cs">
+      <DependentUpon>BulletinPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PopupNotificationWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helper\RegistrySettings.cs" />
     <Compile Include="Models\StaffModel.cs" />
+    <EmbeddedResource Include="Forms\BulletinPopup.resx">
+      <DependentUpon>BulletinPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginDialog.resx">
       <DependentUpon>LoginDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +115,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Message.ico" />
+    <None Include="Resources\arrow-down-4.png" />
+    <None Include="Resources\arrow-left-blue.png" />
+    <None Include="Resources\arrow-right-blue.png" />
+    <None Include="Resources\arrow-right.png" />
+    <None Include="Resources\arrow-left.png" />
     <None Include="Resources\capoeira close.png" />
     <None Include="Resources\odesk aquasol.PNG" />
   </ItemGroup>

@@ -14,6 +14,7 @@ namespace DesktopNotifier
 {
     public partial class MainForm : Form
     {
+        private static PopupNotificationWindow popup = new PopupNotificationWindow();
         public MainForm()
         {
             InitializeComponent();
@@ -21,19 +22,28 @@ namespace DesktopNotifier
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //prepare tray 
             notifyIcon1.Visible = true;
+            notifyIcon1.ContextMenuStrip = null;
 
             //prepare data connection
             DataAccess.getInstance().startup();
             
             //Login
             (new LoginDialog()).ShowDialog();
+            notifyIcon1.ContextMenuStrip = contextMenuStrip1;
 
             //timer
+            resetTimer();
+            timer1_Tick(null, null); //first call
+        }
+
+        public void resetTimer()
+        {
+            timer1.Enabled = false;
             timer1.Interval = RegistrySettings.checkInterval * 1000 * 60;
             timer1.Enabled = true;
-            timer1_Tick(sender, e); //first call
-           
+            
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -51,6 +61,7 @@ namespace DesktopNotifier
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (!popup.IsDisposed && popup.Visible) return;//SIMPLE, not checking it
             timer1.Enabled = false;
             try
             {
@@ -110,9 +121,15 @@ namespace DesktopNotifier
 
         private static void popupMessage()
         {
-            PopupNotificationWindow popup = new PopupNotificationWindow();
+            if (popup.IsDisposed) popup = new PopupNotificationWindow();
             popup.initPopupDisplay();
             popup.Show();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.ShowDialog();
         }
     }
 }

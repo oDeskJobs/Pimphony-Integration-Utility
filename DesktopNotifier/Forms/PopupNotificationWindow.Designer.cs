@@ -30,12 +30,12 @@
         {
             this.pnlMain = new System.Windows.Forms.Panel();
             this.pnlMessage = new System.Windows.Forms.Panel();
+            this.lblEmptyMessage = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.btnPrev = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
-            this.lblMessage = new System.Windows.Forms.Label();
-            this.lblEmptyMessage = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlMessage.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -49,7 +49,7 @@
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(558, 170);
+            this.pnlMain.Size = new System.Drawing.Size(558, 205);
             this.pnlMain.TabIndex = 3;
             // 
             // pnlMessage
@@ -58,8 +58,17 @@
             this.pnlMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMessage.Location = new System.Drawing.Point(0, 0);
             this.pnlMessage.Name = "pnlMessage";
-            this.pnlMessage.Size = new System.Drawing.Size(556, 130);
+            this.pnlMessage.Size = new System.Drawing.Size(556, 165);
             this.pnlMessage.TabIndex = 11;
+            // 
+            // lblEmptyMessage
+            // 
+            this.lblEmptyMessage.AutoSize = true;
+            this.lblEmptyMessage.Location = new System.Drawing.Point(11, 8);
+            this.lblEmptyMessage.Name = "lblEmptyMessage";
+            this.lblEmptyMessage.Size = new System.Drawing.Size(141, 13);
+            this.lblEmptyMessage.TabIndex = 0;
+            this.lblEmptyMessage.Text = "You have no new messages";
             // 
             // panel1
             // 
@@ -68,10 +77,19 @@
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.btnNext);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 130);
+            this.panel1.Location = new System.Drawing.Point(0, 165);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(556, 38);
             this.panel1.TabIndex = 10;
+            // 
+            // lblMessage
+            // 
+            this.lblMessage.AutoSize = true;
+            this.lblMessage.Location = new System.Drawing.Point(11, 13);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(79, 13);
+            this.lblMessage.TabIndex = 10;
+            this.lblMessage.Text = "1 of 2 message";
             // 
             // btnPrev
             // 
@@ -119,30 +137,12 @@
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
-            // lblMessage
-            // 
-            this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(11, 13);
-            this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(79, 13);
-            this.lblMessage.TabIndex = 10;
-            this.lblMessage.Text = "1 of 2 message";
-            // 
-            // lblEmptyMessage
-            // 
-            this.lblEmptyMessage.AutoSize = true;
-            this.lblEmptyMessage.Location = new System.Drawing.Point(11, 8);
-            this.lblEmptyMessage.Name = "lblEmptyMessage";
-            this.lblEmptyMessage.Size = new System.Drawing.Size(141, 13);
-            this.lblEmptyMessage.TabIndex = 0;
-            this.lblEmptyMessage.Text = "You have no new messages";
-            // 
             // PopupNotificationWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(558, 170);
+            this.ClientSize = new System.Drawing.Size(558, 205);
             this.Controls.Add(this.pnlMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PopupNotificationWindow";

@@ -123,6 +123,26 @@ namespace DesktopNotifier.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap information_2 {
+            get {
+                object obj = ResourceManager.GetObject("information-2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap information_4 {
+            get {
+                object obj = ResourceManager.GetObject("information-4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap odesk_aquasol {
             get {
                 object obj = ResourceManager.GetObject("odesk aquasol", resourceCulture);

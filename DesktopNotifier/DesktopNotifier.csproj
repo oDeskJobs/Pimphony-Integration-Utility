@@ -59,6 +59,12 @@
     <Compile Include="Forms\PopupNotificationWindow.Designer.cs">
       <DependentUpon>PopupNotificationWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper\DataAccess.cs" />
     <Compile Include="Forms\LoginDialog.cs">
       <SubType>Form</SubType>
@@ -90,6 +96,9 @@
     <EmbeddedResource Include="Forms\PopupNotificationWindow.resx">
       <DependentUpon>PopupNotificationWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -115,6 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Message.ico" />
+    <None Include="Resources\information-4.png" />
+    <None Include="Resources\information-2.png" />
     <None Include="Resources\arrow-down-4.png" />
     <None Include="Resources\arrow-left-blue.png" />
     <None Include="Resources\arrow-right-blue.png" />

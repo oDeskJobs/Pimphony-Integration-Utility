@@ -21,13 +21,15 @@ namespace DesktopNotifier
         //Global static object
         public static StaffModel loginStaff = null;
         public static List<BulletinModel> listBulletin;
+        public static MainForm mainForm;
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             RegistrySettings.loadValues();
-            Application.Run(new MainForm());
+            mainForm = new MainForm();
+            Application.Run(mainForm);
         }
     }
 }

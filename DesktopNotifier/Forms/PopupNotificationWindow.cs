@@ -70,25 +70,29 @@ namespace DesktopNotifier.Forms
         private void displayMessage(int iPosMessage)
         {
             pnlMessage.Controls.Clear();
-            pnlMessage.Controls.Add(new BulletinPopup(iPosMessage));
+            BulletinPopup popup = new BulletinPopup(iPosMessage);
+            popup.Dock = DockStyle.Fill;
+            pnlMessage.Controls.Add(popup);
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            int oldPos = iPosMessage;
             if (iPosMessage < Program.listBulletin.Count-1)
             {
                 iPosMessage++;
             }
-            displayMessage(iPosMessage);
+            if(oldPos!=iPosMessage) displayMessage(iPosMessage);
         }
 
         private void btnPrev_Click(object sender, EventArgs e)
         {
+            int oldPos = iPosMessage;
             if (iPosMessage > 0)
             {
                 iPosMessage--;
             }
-            displayMessage(iPosMessage);
+            if (oldPos != iPosMessage) displayMessage(iPosMessage);
         }
     }
 }

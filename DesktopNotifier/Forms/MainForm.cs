@@ -28,7 +28,11 @@ namespace DesktopNotifier
             notifyIcon1.ContextMenuStrip = null;
 
             //prepare data connection
-            DataAccess.getInstance().startup();
+            if (!DataAccess.getInstance().startup())
+            {
+                Application.Exit();
+                return;
+            }
             
             //Login
             (new LoginDialog()).ShowDialog();

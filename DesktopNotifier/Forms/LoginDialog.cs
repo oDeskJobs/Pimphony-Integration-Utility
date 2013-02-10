@@ -47,19 +47,23 @@ namespace DesktopNotifier
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            string sql = "select * from staff where scode=@scode";
+            string sql = "select * from [staff] where [scode]=@scode and [password]=@password";
             OleDbCommand cmd = new OleDbCommand(sql, DataAccess.getInstance().getDataConnection());
             cmd.Parameters.AddWithValue("scode", ((StaffModel) cboUsername.SelectedValue).Value);
+            cmd.Parameters.AddWithValue("password", txtPassword.Text);
             OleDbDataReader rdr = cmd.ExecuteReader();
             if (rdr.Read())
             {
                 Program.loginStaff = new StaffModel(rdr.GetInt32(rdr.GetOrdinal("staffno")), rdr.GetString(rdr.GetOrdinal("scode")), rdr.GetString(rdr.GetOrdinal("sname")), "");
-            };
-            rdr.Close();
-            cmd.Dispose();
-
-            //MessageBox.Show("Welcome " + Program.loginStaff.Name);
-
+                rdr.Close();
+                cmd.Dispose();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("You have supply a wrong credential", Application.ProductName);
+                return;
+            }
         }
 
         

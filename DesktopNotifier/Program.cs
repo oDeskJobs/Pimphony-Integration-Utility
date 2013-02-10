@@ -20,7 +20,7 @@ namespace DesktopNotifier
 
         //Global static object
         public static StaffModel loginStaff = null;
-        public static List<BulletinModel> listBulletin;
+        public static List<BulletinModel> listBulletin = new List<BulletinModel>();
         public static MainForm mainForm;
         [STAThread]
         static void Main()

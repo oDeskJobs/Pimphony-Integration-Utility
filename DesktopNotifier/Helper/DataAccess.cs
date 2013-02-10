@@ -28,6 +28,7 @@ namespace DesktopNotifier
             if(!System.IO.File.Exists(RegistrySettings.dbFilename))
             {
                 MessageBox.Show("Database not exist\nPlease run the Integration Settings to set the location of the database",Application.ProductName,MessageBoxButtons.OK,MessageBoxIcon.Information);
+                Application.Exit();
             }
             myConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + RegistrySettings.dbFilename;
             

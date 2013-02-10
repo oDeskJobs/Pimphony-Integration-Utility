@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using DesktopNotifier.Models;
 using DesktopNotifier.Forms;
+using System.Media;
 
 namespace DesktopNotifier
 {
@@ -65,19 +66,11 @@ namespace DesktopNotifier
             timer1.Enabled = false;
             try
             {
-
-                fillListBulletin();
-
-                //store and display in a nice sliding notification window
-                string tip;
-                if (Program.listBulletin.Count == 0)
+                fillListBulletin(true);
+                if (Program.listBulletin.Count> 0)
                 {
-                    tip = "You don't have new messages";
-                }else{
-                    tip = "You have " + Program.listBulletin.Count + " message(s) waiting\nClick here to display it";
                     popupMessage();
                 }
-                notifyIcon1.Text = tip;
             }
             catch (Exception ex)
             {
@@ -87,10 +80,10 @@ namespace DesktopNotifier
 
         }
 
-        public void fillListBulletin()
+        public void fillListBulletin(bool playSound)
         {
             //fill listBulleting
-            string sql = "select [seqno],[staff].[staffno],[staff].[sname],[bdate],[notes],[complete],[startdate],[sender],[important],[read] from [bulletin],staff where [bulletin].[staffno]=@staffno and [read]=false and [bulletin].[sender]=[staff].[staffno]";
+            string sql = "select [seqno],[staff].[staffno],[staff].[sname],[bdate],[notes],[complete],[startdate],[sender],[important],[read] from [bulletin],staff where ([bulletin].[staffno]=@staffno) and ([complete]=false or [read]=false) and ([bulletin].[sender]=[staff].[staffno])";
             OleDbCommand cmd = new OleDbCommand(sql, DataAccess.getInstance().getDataConnection());
             cmd.Parameters.AddWithValue("staffno", Program.loginStaff.staffNo);
             OleDbDataReader rdr = cmd.ExecuteReader();
@@ -111,13 +104,32 @@ namespace DesktopNotifier
             }
             rdr.Close();
             cmd.Dispose();
+
+            //store and display in a nice sliding notification window
+            string tip;
+            if (Program.listBulletin.Count == 0)
+            {
+                tip = "You don't have new messages";
+            }
+            else
+            {
+                //let's play sound!
+                if(playSound && RegistrySettings.playNotificationSound && !popup.Visible) (new SoundPlayer(Application.StartupPath + "\\Media\\newmail.wav")).Play();
+                tip = "You have " + Program.listBulletin.Count + " message(s) waiting\nClick here to display it";
+                //popupMessage();
+            }
+            notifyIcon1.Text = tip;
         }
 
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (Program.listBulletin == null)
+            fillListBulletin(false);
+            if (Program.listBulletin.Count == 0)
+            {
+                notifyIcon1.ShowBalloonTip(1000,"",notifyIcon1.Text,ToolTipIcon.Info);
                 return;
-
+            }
+             
             if (e.Button == MouseButtons.Left)
             {
                 popupMessage();
@@ -135,6 +147,11 @@ namespace DesktopNotifier
         {
             Settings settings = new Settings();
             settings.ShowDialog();
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

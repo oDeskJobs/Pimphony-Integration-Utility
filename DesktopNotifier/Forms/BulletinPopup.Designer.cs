@@ -49,6 +49,7 @@
             this.chkComplete.TabIndex = 12;
             this.chkComplete.Text = "Mark complete";
             this.chkComplete.UseVisualStyleBackColor = true;
+            this.chkComplete.CheckedChanged += new System.EventHandler(this.chkComplete_CheckedChanged);
             // 
             // txtMessage
             // 

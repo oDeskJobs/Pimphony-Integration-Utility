@@ -124,6 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Message.ico" />
+    <Content Include="Media\newmail.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\information-4.png" />
     <None Include="Resources\information-2.png" />
     <None Include="Resources\arrow-down-4.png" />
@@ -134,6 +137,7 @@
     <None Include="Resources\capoeira close.png" />
     <None Include="Resources\odesk aquasol.PNG" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

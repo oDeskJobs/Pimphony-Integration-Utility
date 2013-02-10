@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.OleDb;
 
 namespace DesktopNotifier.Forms
 {
@@ -52,5 +53,37 @@ namespace DesktopNotifier.Forms
                 picImportant.Image = global::DesktopNotifier.Properties.Resources.information_4;
             }
          }
+
+        private void chkComplete_CheckedChanged(object sender, EventArgs e)
+        {
+            string sql = "update bulletin set [complete]=true where [seqno]=@seqno";
+            OleDbCommand cmd = new OleDbCommand(sql, DataAccess.getInstance().getDataConnection());
+            cmd.Parameters.AddWithValue("seqno", Program.listBulletin[iPosMessage].seqNo);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+
+            //check it
+            sql = "select [complete] from bulletin where seqno=@seqno";
+            cmd = new OleDbCommand(sql, DataAccess.getInstance().getDataConnection());
+            cmd.Parameters.AddWithValue("seqno", Program.listBulletin[iPosMessage].seqNo);
+            OleDbDataReader rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                if (rdr.GetBoolean(rdr.GetOrdinal("complete")))
+                {
+                    chkComplete.Checked = true;
+                    Program.listBulletin[iPosMessage].complete = true;
+                }
+                else
+                {
+                    MessageBox.Show("Unable to mark this task as complete! Please consult your system administration", Application.ProductName);
+                }
+            }
+            rdr.Close();
+            cmd.Dispose();
+
+            
+
+        }
     }
 }

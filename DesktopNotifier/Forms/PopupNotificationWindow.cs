@@ -32,7 +32,7 @@ namespace DesktopNotifier.Forms
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            Program.mainForm.fillListBulletin(); //reset list
+            Program.mainForm.fillListBulletin(false); //reset list
             Close();
         }
 
@@ -71,16 +71,18 @@ namespace DesktopNotifier.Forms
 
         private void displayMessage(int iPosMessage)
         {
-            pnlMessage.Controls.Clear();
-            BulletinPopup popup = new BulletinPopup(iPosMessage);
-            popup.Dock = DockStyle.Fill;
-            pnlMessage.Controls.Add(popup);
             //mark read
             string sql = "update [bulletin] set [read]=true where [seqno]=@seqno";
             OleDbCommand cmd = new OleDbCommand(sql, DataAccess.getInstance().getDataConnection());
             cmd.Parameters.AddWithValue("seqno", Program.listBulletin[iPosMessage].seqNo);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
+
+            pnlMessage.Controls.Clear();
+            BulletinPopup popup = new BulletinPopup(iPosMessage);
+            popup.Dock = DockStyle.Fill;
+            pnlMessage.Controls.Add(popup);
+           
         }
 
         private void btnNext_Click(object sender, EventArgs e)

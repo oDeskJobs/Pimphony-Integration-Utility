@@ -29,11 +29,15 @@ namespace DesktopNotifier.Forms
                 chkRuntAtStartup.Checked = true;
             }
             key.Close();
+
+            //check for notif config
+            chkPlayNotificationSound.Checked = RegistrySettings.playNotificationSound;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             RegistrySettings.checkInterval = (int) numCheckInterval.Value;
+            RegistrySettings.playNotificationSound = chkPlayNotificationSound.Checked;
             Program.mainForm.resetTimer();
             RegistrySettings.writeValues();
 
@@ -48,6 +52,8 @@ namespace DesktopNotifier.Forms
                 key.DeleteValue("Aquasol Desktop Notifier");
             }
             key.Close();
+
+            
             Close();
         }
     }

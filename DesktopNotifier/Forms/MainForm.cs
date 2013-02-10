@@ -66,28 +66,7 @@ namespace DesktopNotifier
             try
             {
 
-                //fill listBulleting
-                string sql = "select [seqno],[staff].[staffno],[staff].[sname],[bdate],[notes],[complete],[startdate],[sender],[important],[read] from [bulletin],staff where [bulletin].[staffno]=@staffno and [read]=false and [bulletin].[sender]=[staff].[staffno]";
-                OleDbCommand cmd = new OleDbCommand(sql, DataAccess.getInstance().getDataConnection());
-                cmd.Parameters.AddWithValue("staffno", Program.loginStaff.staffNo);
-                OleDbDataReader rdr = cmd.ExecuteReader();
-                Program.listBulletin = new List<BulletinModel>();
-                while (rdr.Read())
-                {
-                    Program.listBulletin.Add(new
-                        BulletinModel(rdr.GetInt32(rdr.GetOrdinal("seqno")),
-                        rdr.GetInt32(rdr.GetOrdinal("staffno")),
-                        rdr.GetDateTime(rdr.GetOrdinal("bdate")),
-                        rdr.GetString(rdr.GetOrdinal("notes")),
-                        rdr.GetBoolean(rdr.GetOrdinal("complete")),
-                        rdr.GetDateTime(rdr.GetOrdinal("startdate")),
-                        rdr.GetInt32(rdr.GetOrdinal("sender")),
-                        rdr.GetBoolean(rdr.GetOrdinal("important")),
-                        rdr.GetBoolean(rdr.GetOrdinal("read")),
-                        rdr.GetString(rdr.GetOrdinal("sname"))));
-                }
-                rdr.Close();
-                cmd.Dispose();
+                fillListBulletin();
 
                 //store and display in a nice sliding notification window
                 string tip;
@@ -106,6 +85,32 @@ namespace DesktopNotifier
             }
                 timer1.Enabled = true;
 
+        }
+
+        public void fillListBulletin()
+        {
+            //fill listBulleting
+            string sql = "select [seqno],[staff].[staffno],[staff].[sname],[bdate],[notes],[complete],[startdate],[sender],[important],[read] from [bulletin],staff where [bulletin].[staffno]=@staffno and [read]=false and [bulletin].[sender]=[staff].[staffno]";
+            OleDbCommand cmd = new OleDbCommand(sql, DataAccess.getInstance().getDataConnection());
+            cmd.Parameters.AddWithValue("staffno", Program.loginStaff.staffNo);
+            OleDbDataReader rdr = cmd.ExecuteReader();
+            Program.listBulletin = new List<BulletinModel>();
+            while (rdr.Read())
+            {
+                Program.listBulletin.Add(new
+                    BulletinModel(rdr.GetInt32(rdr.GetOrdinal("seqno")),
+                    rdr.GetInt32(rdr.GetOrdinal("staffno")),
+                    rdr.GetDateTime(rdr.GetOrdinal("bdate")),
+                    rdr.GetString(rdr.GetOrdinal("notes")),
+                    rdr.GetBoolean(rdr.GetOrdinal("complete")),
+                    rdr.GetDateTime(rdr.GetOrdinal("startdate")),
+                    rdr.GetInt32(rdr.GetOrdinal("sender")),
+                    rdr.GetBoolean(rdr.GetOrdinal("important")),
+                    rdr.GetBoolean(rdr.GetOrdinal("read")),
+                    rdr.GetString(rdr.GetOrdinal("sname"))));
+            }
+            rdr.Close();
+            cmd.Dispose();
         }
 
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)

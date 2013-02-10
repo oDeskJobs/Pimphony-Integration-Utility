@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.OleDb;
 
 namespace DesktopNotifier.Forms
 {
@@ -31,6 +32,7 @@ namespace DesktopNotifier.Forms
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            Program.mainForm.fillListBulletin(); //reset list
             Close();
         }
 
@@ -73,6 +75,12 @@ namespace DesktopNotifier.Forms
             BulletinPopup popup = new BulletinPopup(iPosMessage);
             popup.Dock = DockStyle.Fill;
             pnlMessage.Controls.Add(popup);
+            //mark read
+            string sql = "update [bulletin] set [read]=true where [seqno]=@seqno";
+            OleDbCommand cmd = new OleDbCommand(sql, DataAccess.getInstance().getDataConnection());
+            cmd.Parameters.AddWithValue("seqno", Program.listBulletin[iPosMessage].seqNo);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
         }
 
         private void btnNext_Click(object sender, EventArgs e)

@@ -14,6 +14,7 @@ namespace DesktopNotifier
     public partial class LoginDialog : Form
     {
         List<StaffModel> listStaff;
+        bool graceClose = false;
         public LoginDialog()
         {
             InitializeComponent();
@@ -21,10 +22,8 @@ namespace DesktopNotifier
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("You won't be able to receive message notification upon exiting\nAre you sure?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
+            graceClose = false;
+            Close();
         }
 
         private void LoginDialog_Load(object sender, EventArgs e)
@@ -57,12 +56,27 @@ namespace DesktopNotifier
                 Program.loginStaff = new StaffModel(rdr.GetInt32(rdr.GetOrdinal("staffno")), rdr.GetString(rdr.GetOrdinal("scode")), rdr.GetString(rdr.GetOrdinal("sname")), "");
                 rdr.Close();
                 cmd.Dispose();
+                graceClose = true;
                 Close();
             }
             else
             {
                 MessageBox.Show("You have supply a wrong credential", Application.ProductName);
                 return;
+            }
+        }
+
+        private void LoginDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (graceClose) return;
+            if (MessageBox.Show("You won't be able to receive message notification upon exiting\nAre you sure?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                graceClose = true;
+                Application.Exit();
+            }
+            else
+            {
+                e.Cancel = true;
             }
         }
 

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Instant notification of tasks")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Aquasol")]
-[assembly: AssemblyProduct("DesktopNotifier")]
+[assembly: AssemblyProduct("Aquasol Desktop Notifier")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

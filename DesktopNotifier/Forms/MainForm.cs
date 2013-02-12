@@ -127,8 +127,9 @@ namespace DesktopNotifier
 
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
         {
+            if (notifyIcon1.ContextMenuStrip == null) return;
             fillListBulletin(false);
-            if (Program.listBulletin.Count == 0)
+            if (e.Button==MouseButtons.Left && Program.listBulletin.Count == 0)
             {
                 notifyIcon1.ShowBalloonTip(1000,"",notifyIcon1.Text,ToolTipIcon.Info);
                 return;

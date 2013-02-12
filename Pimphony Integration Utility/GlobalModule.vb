@@ -12,6 +12,7 @@ Module GlobalModule
     Public objAccess As Object 'module-level declaration
     Public RegKey As String = "SOFTWARE\\Swdev Bali\\PIMPhony Integration Utility\\1.0"
     Public dbFileName As String = Nothing
+    Public dbPassword As String
     Public isAcceptInternalCall As Boolean
     Public isAutomaticallyOpenDatabase As Boolean
     Public OpenFileDialog As New OpenFileDialog
@@ -48,6 +49,7 @@ Module GlobalModule
 
         With objAccess
             If .DBEngine.Workspaces(0).Databases.Count = 0 Then
+                Dim db = .DBEngine.OpenDatabase(dbFileName, False, False, ";PWD=" & dbPassword)
                 .OpenCurrentDatabase(filepath:=dbFileName)
                 .DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
                 Try
@@ -134,9 +136,17 @@ Module GlobalModule
         Else
             isAutomaticallyOpenDatabase = AppKey.GetValue("Automatically Open Database", False)
         End If
+
+        If AppKey.GetValue("DB Password", Nothing) Is Nothing Then
+            AppKey.SetValue("DB Password", "")
+            dbPassword = ""
+        Else
+            dbPassword = AppKey.GetValue("DB Password", "")
+        End If
     End Sub
     Public Sub SaveRegistryValue()
         AppKey.SetValue("DB Filename", dbFileName)
+        AppKey.SetValue("DB Password", dbPassword)
         AppKey.SetValue("Accept Internal Call", isAcceptInternalCall)
         AppKey.SetValue("Automatically Open Database", isAutomaticallyOpenDatabase)
     End Sub

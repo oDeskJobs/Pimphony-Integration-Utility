@@ -31,6 +31,8 @@ Partial Class SettingForm
         Me.btnApply = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.chkAutoOpenDatabase = New System.Windows.Forms.CheckBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtPassword = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'btnOK
@@ -38,7 +40,7 @@ Partial Class SettingForm
         Me.btnOK.Location = New System.Drawing.Point(253, 191)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
-        Me.btnOK.TabIndex = 4
+        Me.btnOK.TabIndex = 5
         Me.btnOK.Text = "&OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
@@ -71,10 +73,10 @@ Partial Class SettingForm
         'chkAcceptIntCall
         '
         Me.chkAcceptIntCall.AutoSize = True
-        Me.chkAcceptIntCall.Location = New System.Drawing.Point(16, 79)
+        Me.chkAcceptIntCall.Location = New System.Drawing.Point(16, 118)
         Me.chkAcceptIntCall.Name = "chkAcceptIntCall"
         Me.chkAcceptIntCall.Size = New System.Drawing.Size(100, 17)
-        Me.chkAcceptIntCall.TabIndex = 3
+        Me.chkAcceptIntCall.TabIndex = 4
         Me.chkAcceptIntCall.Text = "Accept INT call"
         Me.chkAcceptIntCall.UseVisualStyleBackColor = True
         '
@@ -83,7 +85,7 @@ Partial Class SettingForm
         Me.btnApply.Location = New System.Drawing.Point(415, 191)
         Me.btnApply.Name = "btnApply"
         Me.btnApply.Size = New System.Drawing.Size(75, 23)
-        Me.btnApply.TabIndex = 6
+        Me.btnApply.TabIndex = 7
         Me.btnApply.Text = "&Apply"
         Me.btnApply.UseVisualStyleBackColor = True
         '
@@ -93,19 +95,36 @@ Partial Class SettingForm
         Me.btnCancel.Location = New System.Drawing.Point(334, 191)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 5
+        Me.btnCancel.TabIndex = 6
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'chkAutoOpenDatabase
         '
         Me.chkAutoOpenDatabase.AutoSize = True
-        Me.chkAutoOpenDatabase.Location = New System.Drawing.Point(16, 56)
+        Me.chkAutoOpenDatabase.Location = New System.Drawing.Point(16, 95)
         Me.chkAutoOpenDatabase.Name = "chkAutoOpenDatabase"
         Me.chkAutoOpenDatabase.Size = New System.Drawing.Size(236, 17)
-        Me.chkAutoOpenDatabase.TabIndex = 2
+        Me.chkAutoOpenDatabase.TabIndex = 3
         Me.chkAutoOpenDatabase.Text = "Automatically open database when not open"
         Me.chkAutoOpenDatabase.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(13, 53)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(163, 13)
+        Me.Label2.TabIndex = 7
+        Me.Label2.Text = "Database password (if protected)"
+        '
+        'txtPassword
+        '
+        Me.txtPassword.Location = New System.Drawing.Point(16, 69)
+        Me.txtPassword.Name = "txtPassword"
+        Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtPassword.Size = New System.Drawing.Size(160, 20)
+        Me.txtPassword.TabIndex = 2
         '
         'SettingForm
         '
@@ -114,6 +133,8 @@ Partial Class SettingForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(502, 226)
+        Me.Controls.Add(Me.txtPassword)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.chkAutoOpenDatabase)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnApply)
@@ -140,4 +161,6 @@ Partial Class SettingForm
     Friend WithEvents btnApply As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents chkAutoOpenDatabase As System.Windows.Forms.CheckBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents txtPassword As System.Windows.Forms.TextBox
 End Class

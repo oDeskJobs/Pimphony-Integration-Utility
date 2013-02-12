@@ -91,8 +91,12 @@ Module GlobalModule
         Dim result As String
         OpenFileDialog.Title = "Select the database file"
         OpenFileDialog.FileName = ""
-        OpenFileDialog.DefaultExt = "*.accdb"
-        OpenFileDialog.Filter = "Microsoft Access Database (*.accdb) | *.accdb"
+        OpenFileDialog.Filter = "Microsoft Access Database (*.accdb) | *.accdb| Microsoft Access Executable (*.accde) | *.accde"
+        If dbFileName.Contains(".accdb") Then
+            OpenFileDialog.FilterIndex = 1
+        Else
+            OpenFileDialog.FilterIndex = 2
+        End If
         OpenFileDialog.ShowDialog()
         result = OpenFileDialog.FileName
         GetDbFilename = result

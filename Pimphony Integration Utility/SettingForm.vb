@@ -14,7 +14,9 @@
 
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
         dbFileName = GetDbFilename()
-        txtFilename.Text = dbFileName
+        If Not dbFileName.Equals("") Then
+            txtFilename.Text = dbFileName
+        End If
     End Sub
 
     Private Sub ApplySettings()

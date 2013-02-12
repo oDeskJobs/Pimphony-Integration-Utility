@@ -53,9 +53,9 @@ Partial Class SettingForm
         '
         'txtFilename
         '
-        Me.txtFilename.Enabled = False
         Me.txtFilename.Location = New System.Drawing.Point(16, 30)
         Me.txtFilename.Name = "txtFilename"
+        Me.txtFilename.ReadOnly = True
         Me.txtFilename.Size = New System.Drawing.Size(393, 20)
         Me.txtFilename.TabIndex = 0
         '

@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Office.Interop
 Imports Microsoft.Win32
 Module GlobalModule
-    Declare Function SetForegroundWindow Lib "User32" (ByVal hWnd As Long) As Long
+    Declare Function SetForegroundWindow Lib "user32" (ByVal hwnd As IntPtr) As Long
     Declare Function IsIconic Lib "User32" (ByVal hWnd As Long) As Long
     Declare Function ShowWindow Lib "User32" (ByVal hWnd As Long, ByVal nCmdShow As Long) As Long
     Public Const SW_NORMAL = 1     'Show window in normal size
@@ -50,7 +50,10 @@ Module GlobalModule
             If .DBEngine.Workspaces(0).Databases.Count = 0 Then
                 .OpenCurrentDatabase(filepath:=dbFileName)
                 .DoCmd.OpenForm(FormName:="NewCall", View:=Access.AcFormView.acNormal)
-                objAccess.visible = True
+                Try
+                    objAccess.visible = True
+                Catch ex As Exception
+                End Try
                 .DoCmd.RunCommand(Access.AcCommand.acCmdAppMaximize)
 
             Else

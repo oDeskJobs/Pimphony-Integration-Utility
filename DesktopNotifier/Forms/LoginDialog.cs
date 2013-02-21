@@ -53,6 +53,13 @@ namespace DesktopNotifier
             OleDbDataReader rdr = cmd.ExecuteReader();
             if (rdr.Read())
             {
+                if(!rdr.GetBoolean(rdr.GetOrdinal("isactive")))
+                {
+                    MessageBox.Show("Your account has been deactivated. Please consult your administration regarding this");
+                    rdr.Close();
+                    cmd.Dispose();
+                    return;
+                }
                 Program.loginStaff = new StaffModel(rdr.GetInt32(rdr.GetOrdinal("staffno")), rdr.GetString(rdr.GetOrdinal("scode")), rdr.GetString(rdr.GetOrdinal("sname")), "");
                 rdr.Close();
                 cmd.Dispose();

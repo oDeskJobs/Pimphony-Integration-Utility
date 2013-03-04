@@ -28,15 +28,19 @@ namespace DesktopNotifier
 
         private void LoginDialog_Load(object sender, EventArgs e)
         {
-            OleDbCommand cmd = new OleDbCommand("select staffno, scode,sname from staff order by sname", DataAccess.getInstance().getDataConnection());
+            OleDbCommand cmd = new OleDbCommand("select staffno, scode,sname from staff where isactive=true order by sname ", DataAccess.getInstance().getDataConnection());
             OleDbDataReader rdr = cmd.ExecuteReader();
           
             listStaff = new List<StaffModel>();
-
+            AutoCompleteStringCollection autoCompleteUser = new AutoCompleteStringCollection();
+            
             while (rdr.Read())
             {
                 listStaff.Add(new StaffModel(rdr.GetInt32(rdr.GetOrdinal("staffno")), rdr.GetString(rdr.GetOrdinal("scode")), rdr.GetString(rdr.GetOrdinal("sname")), ""));
+                autoCompleteUser.Add(rdr.GetString(rdr.GetOrdinal("sname")));
             }
+
+            cboUsername.AutoCompleteCustomSource = autoCompleteUser;
             cboUsername.Items.Clear();
             cboUsername.DisplayMember = "Name";
             cboUsername.DataSource = listStaff;

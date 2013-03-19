@@ -63,6 +63,7 @@ namespace DesktopNotifier
         {
             // Get a local pointer to the UpdateManager instance
             UpdateManager updManager = UpdateManager.Instance;
+            updManager.UpdateSource=source;
             updManager.ReinstateIfRestarted(); // required to be able to restore state after app restart
             updManager.Config.BackupFolder = "g:\\temp\\update\\backup";
             updManager.Config.TempFolder = "g:\\temp\\update\\temp";

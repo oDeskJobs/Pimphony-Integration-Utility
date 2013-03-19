@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PimphonyTestDataSet" targetNamespace="http://tempuri.org/PimphonyTestDataSet.xsd" xmlns:mstns="http://tempuri.org/PimphonyTestDataSet.xsd" xmlns="http://tempuri.org/PimphonyTestDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection ConnectionStringObject="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=&quot;C:\Users\Eko Wibowo\Documents\GitHub\Pimphony-Integration-Utility\Database\PimphonyTest.accdb&quot;" IsAppSettingsProperty="false" Modifier="Assembly" Name="PimphonyTest.accdb" Provider="System.Data.OleDb" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="PimphonyTestDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="PimphonyTestDataSet" msprop:Generator_UserDSName="PimphonyTestDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

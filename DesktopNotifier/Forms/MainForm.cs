@@ -158,5 +158,10 @@ namespace DesktopNotifier
         {
 
         }
+
+        private void checkUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AutoupdateEngine.CheckForUpdates(new NAppUpdate.Framework.Sources.SimpleWebSource("http://localhost/piu/piu.xml"));
+        }
     }
 }

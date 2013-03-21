@@ -22,8 +22,8 @@ namespace NAppUpdate.Framework.Common
 					string path = value.TrimEnd(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
 					_backupFolder = Path.IsPathRooted(path) ? path : Path.Combine(TempFolder, path);
 				}
-				else
-					throw new ArgumentException("BackupFolder can only be specified before update has started");
+				//else
+					//throw new ArgumentException("BackupFolder can only be specified before update has started");
 			}
 			get
 			{

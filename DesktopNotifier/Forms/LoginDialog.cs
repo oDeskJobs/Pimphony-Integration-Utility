@@ -67,8 +67,9 @@ namespace DesktopNotifier
                 Program.loginStaff = new StaffModel(rdr.GetInt32(rdr.GetOrdinal("staffno")), rdr.GetString(rdr.GetOrdinal("scode")), rdr.GetString(rdr.GetOrdinal("sname")), "");
                 rdr.Close();
                 cmd.Dispose();
-                graceClose = true;
+                graceClose = true;                
                 Close();
+                Program.mainForm.startTimerCheckLatestSoftwareUpdate();//default to check new update bro
             }
             else
             {

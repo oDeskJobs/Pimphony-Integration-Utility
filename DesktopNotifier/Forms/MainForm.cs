@@ -161,7 +161,26 @@ namespace DesktopNotifier
 
         private void checkUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            AutoupdateEngine.automaticUpdate = false;
+            checkLatestSoftwareUpdate();
+        }
+
+        private void checkLatestSoftwareUpdate()
+        {
             AutoupdateEngine.CheckForUpdates(new NAppUpdate.Framework.Sources.SimpleWebSource("http://localhost/piu/piu.xml"));
+        }
+
+        public void startTimerCheckLatestSoftwareUpdate()
+        {
+            timer2.Enabled = true;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            timer2.Enabled = false;
+            AutoupdateEngine.automaticUpdate = true;
+            checkLatestSoftwareUpdate();
+            
         }
     }
 }

@@ -1,28 +1,28 @@
+!include "nsProcess.nsh"
 OutFile "Setup.exe"
 
 installDir "$PROGRAMFILES\PIMPhony Integration Utility"
+!define shortcutDir "$SMPROGRAMS\PIMPhony Integration Utility"
 RequestExecutionLevel admin
 
 
 section
 	SetShellVarContext all
 	setOutPath $INSTDIR
-	File piu.exe
-	File Interop.DAO.dll
-	File Interop.VBIDE.dll
-	File "PIMPhony Integration Utility Guide.pdf"
+        ${nsProcess::KillProcess} "DesktopNotifier.exe" $R0
+	File /r "source\*"
 	writeUninstaller $INSTDIR\uninstaller.exe
-	createShortCut "$INSTDIR\Integration Settings.lnk" "$INSTDIR\piu.exe" "-setting"
-
-	CreateDirectory "$SMPROGRAMS\PIMPhony Integration Utility" 
-	createShortCut "$SMPROGRAMS\PIMPhony Integration Utility\Integration Settings.lnk" "$INSTDIR\piu.exe" "-setting"
-	createShortcut "$SMPROGRAMS\PIMPhony Integration Utility\Integration Guide.lnk" "$INSTDIR\PIMPhony Integration Utility Guide.pdf"
-	createShortCut "$SMPROGRAMS\PIMPhony Integration Utility\Uninstall.lnk" "$INSTDIR\uninstaller.exe"
+	CreateDirectory "${shortcutDir}" 
+	createShortCut "${shortcutDir}\Desktop Notifier.lnk" "$INSTDIR\DesktopNotifier.exe"
+	createShortCut "${shortcutDir}\Integration Settings.lnk" "$INSTDIR\piu.exe" "-setting"
+	createShortCut "${shortcutDir}\Integration Settings.lnk" "$INSTDIR\piu.exe" "-setting"
+	createShortcut "${shortcutDir}\Integration Guide.lnk" "$INSTDIR\PIMPhony Integration Utility Guide.pdf"
+	createShortCut "${shortcutDir}\Uninstall Pimphony Integration Utility.lnk" "$INSTDIR\uninstaller.exe"
 sectionEnd
 
 	section "Uninstall"
 	SetShellVarContext all
 	delete "$INSTDIR\uninstaller.exe"
 	RMDir /r "$INSTDIR"
-	RMDir /r "$SMPROGRAMS\PIMPhony Integration Utility"
+	RMDir /r "${shortcutDir}"
 sectionEnd

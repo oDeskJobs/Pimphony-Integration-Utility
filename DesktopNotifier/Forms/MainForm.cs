@@ -167,7 +167,8 @@ namespace DesktopNotifier
 
         private void checkLatestSoftwareUpdate()
         {
-            AutoupdateEngine.CheckForUpdates(new NAppUpdate.Framework.Sources.SimpleWebSource("http://localhost/piu/piu.xml"));
+            //AutoupdateEngine.CheckForUpdates(new NAppUpdate.Framework.Sources.UncSource("\\\\COREI3\\Aquanet Updater\\piu.xml","\\\\COREI3\\Aquanet Updater"));
+            AutoupdateEngine.CheckForUpdates(new NAppUpdate.Framework.Sources.SimpleWebSource("http://aquasol.swdevbali.com/piu.xml"));
         }
 
         public void startTimerCheckLatestSoftwareUpdate()

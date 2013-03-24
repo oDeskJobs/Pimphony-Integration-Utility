@@ -3,7 +3,6 @@ using NAppUpdate.Framework.Common;
 using NAppUpdate.Framework.Utils;
 using System.Net;
 using System.IO;
-using System.Net.Sockets;
 
 namespace NAppUpdate.Framework.Sources
 {
@@ -32,19 +31,17 @@ namespace NAppUpdate.Framework.Sources
 			var request = WebRequest.Create(FeedUrl);
 			request.Method = "GET";
 			request.Proxy = Proxy;
-            
-            using (var response = request.GetResponse())
-            {
-                var stream = response.GetResponseStream();
+			using (var response = request.GetResponse())
+			{
+				var stream = response.GetResponseStream();
 
-                if (stream != null)
-                    using (var reader = new StreamReader(stream, true))
-                    {
-                        data = reader.ReadToEnd();
-                    }
-            }
-            
-           
+				if (stream != null)
+					using (var reader = new StreamReader(stream, true))
+					{
+						data = reader.ReadToEnd();
+					}
+			}
+
 			return data;
 		}
 

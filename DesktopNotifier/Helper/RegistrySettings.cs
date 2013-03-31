@@ -11,7 +11,6 @@ namespace DesktopNotifier
         private static RegistrySettings instance = null;
         private static ModifyRegistry reg = new ModifyRegistry();
 
-       
         public static string dbFilename;
         public static int checkInterval;
         public static bool playNotificationSound;
@@ -44,5 +43,7 @@ namespace DesktopNotifier
             reg.Write("Check Interval", checkInterval);
             reg.Write("playNotificationSound", Convert.ToInt32(playNotificationSound));
         }
+
+        
     }
 }

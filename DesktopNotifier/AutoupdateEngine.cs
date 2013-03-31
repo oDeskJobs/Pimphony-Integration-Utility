@@ -27,9 +27,7 @@ namespace DesktopNotifier
 
             // Get a local pointer to the UpdateManager instance
             UpdateManager updManager = UpdateManager.Instance;
-
-            //MessageBox.Show("Updates are ready to install. Application will be restarted after updates", "Software updates ready");
-            
+            MessageBox.Show("Updates are ready to install. Application will be restarted after updates", "Software updates ready");            
             try
             {
                 updManager.ApplyUpdates(true);//chkRelaunch.Checked, chkLogging.Checked, chkShowConsole.Checked);
@@ -38,6 +36,7 @@ namespace DesktopNotifier
             {
                 MessageBox.Show(string.Format("Error while trying to install software updates{0}{1}", Environment.NewLine, ex));
             }
+            
         }
 
         public static void CheckForUpdates(IUpdateSource source)
@@ -86,9 +85,11 @@ namespace DesktopNotifier
                 return;
             }
 
-            MessageBox.Show(string.Format("Updates are available to your software ({0} total). Application updates will occur\n\nPress OK to continue.", updManager.UpdatesAvailable), "Software updates available", MessageBoxButtons.OK);
-
-            updManager.BeginPrepareUpdates(OnPrepareUpdatesCompleted, null);
+            DialogResult dr = MessageBox.Show(string.Format("Updates are available to your software ({0} total). Application updates will occur\n\nDo you want to update it now?", updManager.UpdatesAvailable), "Software updates available", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                updManager.BeginPrepareUpdates(OnPrepareUpdatesCompleted, null);
+            }
         }
         #endregion
     }

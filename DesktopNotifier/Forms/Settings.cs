@@ -56,5 +56,15 @@ namespace DesktopNotifier.Forms
             
             Close();
         }
+
+        private void btnUpdateLocalRepository_Click(object sender, EventArgs e)
+        {
+            AdminAccess adminAccess = new AdminAccess();
+            DialogResult dr = adminAccess.ShowDialog();
+            if (dr == DialogResult.OK && adminAccess.password.Equals("aqua101"))
+            {
+                
+            }
+        }
     }
 }

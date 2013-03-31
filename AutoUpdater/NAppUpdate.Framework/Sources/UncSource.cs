@@ -45,6 +45,11 @@ namespace NAppUpdate.Framework.Sources
 			if (data.StartsWith(_byteOrderMarkUtf8))
 				data = data.Remove(0, _byteOrderMarkUtf8.Length);
 
+            /*my stupid hack*/
+            if(!data.StartsWith("<"))
+            {
+                data = "<" + data;
+            }
 			return data;
 		}
 

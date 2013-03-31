@@ -32,13 +32,27 @@ namespace DesktopNotifier
 
 
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {   
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        password = args[i];
+                        break;                    
+                }
+            }
             RegistrySettings.loadValues();
             mainForm = new MainForm();
             Application.Run(mainForm);
         }
+    
+        public static string password { get; set; }
+        public static string updateLocation = "\\\\AQSBS\\aquasol\\aquasolpublic\\Aquanet\\AQuanet Updater";
+        //public static string updateLocation = "\\\\COREI3\\Aquanet Updater";
     }
 }

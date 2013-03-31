@@ -33,7 +33,7 @@ namespace NAppUpdate.Framework
 						{
 							TempFolder = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()),
 							UpdateProcessName = "NAppUpdateProcess",
-							UpdateExecutableName = "foo.exe", // Naming it updater.exe seem to trigger the UAC, and we don't want that
+							UpdateExecutableName = "FikrPosLatestVersion.exe", // Naming it updater.exe seem to trigger the UAC, and we don't want that
 						};
 
 			// Need to do this manually here because the BackupFolder property is protected using the static instance, which we are

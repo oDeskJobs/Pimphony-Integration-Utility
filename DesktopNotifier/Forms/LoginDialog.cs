@@ -18,6 +18,10 @@ namespace DesktopNotifier
         public LoginDialog()
         {
             InitializeComponent();
+            if (Program.password != null)
+            {
+                txtPassword.Text = Program.password;
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

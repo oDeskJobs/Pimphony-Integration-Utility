@@ -28,6 +28,7 @@ namespace NAppUpdate.Framework.FeedReaders
             List<IUpdateTask> ret = new List<IUpdateTask>();
 
             XmlDocument doc = new XmlDocument();
+            if (feed == null) return null;
             doc.LoadXml(feed);
 
             // Support for different feed versions

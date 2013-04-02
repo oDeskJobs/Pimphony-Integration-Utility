@@ -11,7 +11,7 @@ namespace DesktopNotifier
 {
     class AutoupdateEngine
     {
-        public static bool automaticUpdate;
+        public static bool isAutomaticUpdate;
         #region autoupdate
         private static void OnPrepareUpdatesCompleted(IAsyncResult asyncResult)
         {
@@ -65,7 +65,7 @@ namespace DesktopNotifier
                 // Check for updates - returns true if relevant updates are found (after processing all the tasks and
                 // conditions)
                 // Throws exceptions in case of bad arguments or unexpected results
-                updManager.CheckForUpdates(source);
+                updManager.CheckForUpdates(source, isAutomaticUpdate);
             }
             catch (Exception ex)
             {
@@ -79,9 +79,14 @@ namespace DesktopNotifier
             }
 
 
-            if (updManager.UpdatesAvailable == 0)
+            if (updManager.errorMessage != null && !isAutomaticUpdate)
             {
-                if(!automaticUpdate) MessageBox.Show("Your software is up to date");
+                MessageBox.Show(updManager.errorMessage + "\n\nYour update location is " + Program.updateLocation);
+                return;
+            }
+            else if (updManager.UpdatesAvailable == 0)
+            {
+                if(!isAutomaticUpdate) MessageBox.Show("Your software is up to date");
                 return;
             }
 

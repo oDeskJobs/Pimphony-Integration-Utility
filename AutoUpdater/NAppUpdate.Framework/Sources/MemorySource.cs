@@ -23,7 +23,7 @@ namespace NAppUpdate.Framework.Sources
 
         #region IUpdateSource Members
 
-        public string GetUpdatesFeed()
+        public string GetUpdatesFeed(bool isAutomaticUpdate)
         {
             return Feed;
         }

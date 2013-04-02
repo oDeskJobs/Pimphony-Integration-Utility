@@ -49,7 +49,15 @@ namespace DesktopNotifier.Forms
             }
             else
             {
-                key.DeleteValue("Aquasol Desktop Notifier");
+                try
+                {
+                    key.DeleteValue("Aquasol Desktop Notifier");
+                }
+                catch (ArgumentException ex)
+                {
+                    //it's just because we don't have the run at startup argument
+                }
+                
             }
             key.Close();
 

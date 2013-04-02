@@ -38,17 +38,28 @@ namespace NAppUpdate.Framework.Sources
 
 		private readonly string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
 
-		public string GetUpdatesFeed()
+        public string GetUpdatesFeed(bool isAutomaticUpdate)
 		{
-			string data = File.ReadAllText(FeedUncPath, Encoding.UTF8);
-
-			if (data.StartsWith(_byteOrderMarkUtf8))
-				data = data.Remove(0, _byteOrderMarkUtf8.Length);
-
-            /*my stupid hack*/
-            if(!data.StartsWith("<"))
+            string data = null;
+            try
             {
-                data = "<" + data;
+                data = File.ReadAllText(FeedUncPath, Encoding.UTF8);
+
+                if (data.StartsWith(_byteOrderMarkUtf8))
+                    data = data.Remove(0, _byteOrderMarkUtf8.Length);
+
+                /*my stupid hack*/
+                if (!data.StartsWith("<"))
+                {
+                    data = "<" + data;
+                }
+            }
+            catch (IOException ex)
+            {
+                if (!isAutomaticUpdate)
+                {
+                    
+                }
             }
 			return data;
 		}

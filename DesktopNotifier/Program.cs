@@ -53,6 +53,6 @@ namespace DesktopNotifier
     
         public static string password { get; set; }
         public static string updateLocation = "\\\\AQSBS\\aquasol\\aquasolpublic\\Aquanet\\AQuanet Updater";
-        //public static string updateLocation = "\\\\COREI3\\Aquanet Updater";
+        
     }
 }

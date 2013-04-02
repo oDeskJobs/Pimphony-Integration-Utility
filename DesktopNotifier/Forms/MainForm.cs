@@ -161,7 +161,7 @@ namespace DesktopNotifier
 
         private void checkUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AutoupdateEngine.automaticUpdate = false;
+            AutoupdateEngine.isAutomaticUpdate = false;
             checkLatestSoftwareUpdate();
         }
 
@@ -178,7 +178,7 @@ namespace DesktopNotifier
         private void timer2_Tick(object sender, EventArgs e)
         {
             timer2.Enabled = false;
-            AutoupdateEngine.automaticUpdate = true;
+            AutoupdateEngine.isAutomaticUpdate = true;
             checkLatestSoftwareUpdate();            
         }
     }

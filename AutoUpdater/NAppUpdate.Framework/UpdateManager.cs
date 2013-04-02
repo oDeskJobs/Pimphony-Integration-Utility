@@ -118,16 +118,16 @@ namespace NAppUpdate.Framework
 		/// <summary>
 		/// Check for update synchronously, using the default update source
 		/// </summary>
-		public void CheckForUpdates()
+		public void CheckForUpdates(bool isAutomaticUpdate)
 		{
-			CheckForUpdates(UpdateSource);
+            CheckForUpdates(UpdateSource, isAutomaticUpdate);
 		}
 
 		/// <summary>
 		/// Check for updates synchronouly
 		/// </summary>
 		/// <param name="source">Updates source to use</param>
-		public void CheckForUpdates(IUpdateSource source)
+		public void CheckForUpdates(IUpdateSource source, bool isAutomaticUpdate)
 		{
 			if (IsWorking)
 				throw new InvalidOperationException("Another update process is already in progress");
@@ -146,7 +146,14 @@ namespace NAppUpdate.Framework
 				lock (UpdatesToApply)
 				{
 					UpdatesToApply.Clear();
-					var tasks = UpdateFeedReader.Read(source.GetUpdatesFeed());
+                    string updateFeed = source.GetUpdatesFeed(isAutomaticUpdate);
+                    if (updateFeed == null)
+                    {
+                        errorMessage = "Error occur in locating update repository. Please check your network connection";
+                        return;
+                    }
+                    errorMessage = null;
+                    var tasks = UpdateFeedReader.Read(updateFeed);
 					foreach (var t in tasks)
 					{
 						if (ShouldStop)
@@ -167,7 +174,7 @@ namespace NAppUpdate.Framework
 		/// <param name="source">Update source to use</param>
 		/// <param name="callback">Callback function to call when done; can be null</param>
 		/// <param name="state">Allows the caller to preserve state; can be null</param>
-		public IAsyncResult BeginCheckForUpdates(IUpdateSource source, AsyncCallback callback, Object state)
+		public IAsyncResult BeginCheckForUpdates(IUpdateSource source, AsyncCallback callback, Object state, bool isAutomaticUpdate)
 		{
 			// Create IAsyncResult object identifying the 
 			// asynchronous operation
@@ -179,7 +186,7 @@ namespace NAppUpdate.Framework
 			                             		try
 			                             		{
 			                             			// Perform the operation; if sucessful set the result
-			                             			CheckForUpdates(source ?? UpdateSource);
+                                                    CheckForUpdates(source ?? UpdateSource, isAutomaticUpdate);
 			                             			ar.SetAsCompleted(null, false);
 			                             		}
 			                             		catch (Exception e)
@@ -197,9 +204,9 @@ namespace NAppUpdate.Framework
 		/// </summary>
 		/// <param name="callback">Callback function to call when done; can be null</param>
 		/// <param name="state">Allows the caller to preserve state; can be null</param>
-		public IAsyncResult BeginCheckForUpdates(AsyncCallback callback, Object state)
+        public IAsyncResult BeginCheckForUpdates(AsyncCallback callback, Object state, bool isAutomaticUpdate)
 		{
-			return BeginCheckForUpdates(UpdateSource, callback, state);
+            return BeginCheckForUpdates(UpdateSource, callback, state, isAutomaticUpdate);
 		}
 
 		/// <summary>
@@ -574,5 +581,7 @@ namespace NAppUpdate.Framework
 				ShouldStop = false;
 			}
 		}
-	}
+
+        public string errorMessage { get; set; }
+    }
 }
